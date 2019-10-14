@@ -1,11 +1,7 @@
 class UsersController < ApplicationController
     
     def index
-
-        # user = User.find_by(username: params[:username])
-        # render json: user, include:[:items, :outfits]
         users = User.all
-        #render json: users , include:[:items , :outfits]
         render json: users.to_json(include: {
             items: {except: [:created_at , :updated_at]} ,
             outfits: {except: [:created_at , :updated_at] , include: {
