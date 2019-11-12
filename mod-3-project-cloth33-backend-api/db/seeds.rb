@@ -8,8 +8,8 @@
 
 
 
-user_1 = User.create(username: "Molly")
-user_3 = User.create(username: "Mitch")
+user_1 = User.create(username: "molly" , password: "password")
+user_3 = User.create(username: "mitch" , password: "wordpass")
 
 
 # Tops
