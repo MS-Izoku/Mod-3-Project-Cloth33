@@ -10,12 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_19_162656) do
+ActiveRecord::Schema.define(version: 2019_11_12_151713) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.string "category"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.string "img_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -23,8 +26,8 @@ ActiveRecord::Schema.define(version: 2019_08_19_162656) do
   end
 
   create_table "outfit_items", force: :cascade do |t|
-    t.integer "item_id"
-    t.integer "outfit_id"
+    t.bigint "item_id"
+    t.bigint "outfit_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_outfit_items_on_item_id"
@@ -32,7 +35,7 @@ ActiveRecord::Schema.define(version: 2019_08_19_162656) do
   end
 
   create_table "outfits", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_outfits_on_user_id"
@@ -42,6 +45,11 @@ ActiveRecord::Schema.define(version: 2019_08_19_162656) do
     t.string "username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password_digest"
   end
 
+  add_foreign_key "items", "users"
+  add_foreign_key "outfit_items", "items"
+  add_foreign_key "outfit_items", "outfits"
+  add_foreign_key "outfits", "users"
 end
